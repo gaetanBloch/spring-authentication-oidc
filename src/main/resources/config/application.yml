@@ -1,0 +1,58 @@
+application:
+  security:
+    oauth2:
+      audience:
+        - account
+        - api://default
+
+spring:
+  application:
+    name: authentication-service
+  threads:
+    virtual:
+      enabled: true
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: lb://user-service # Service ID of your user service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+      default-filters:
+        - TokenRelay
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc:
+            client-id: web_app
+            client-secret: web_app
+            scope: openid, profile, email, offline_access # last one for refresh tokens
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9080/realms/geode
+
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    tagsSorter: alpha
+    tryItOutEnabled: true
+    oauth:
+      client-id: web_app
+      realm: jhipster
+  enable-native-support: true
+  oauth2:
+    authorization-url: http://localhost:9080/realms/geode/protocol/openid-connect/auth
+
+server:
+  port: 8080

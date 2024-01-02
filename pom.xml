@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8" ?>
+<project
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.2.1</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath /> <!-- lookup parent from repository -->
   </parent>
   <groupId>fr.keyconsulting.geode</groupId>
   <artifactId>authentication</artifactId>
@@ -76,13 +78,18 @@
     <git-commit-id-plugin.version>7.0.0</git-commit-id-plugin.version>
     <validation-api.version>3.0.2</validation-api.version>
 
+    <liquibase.version>4.25.0</liquibase.version>
+
     <springdoc-openapi-starter-webflux-api.version>2.3.0
     </springdoc-openapi-starter-webflux-api.version>
     <feign-reactor-cloud.version>4.0.3</feign-reactor-cloud.version>
     <typesafe.version>1.4.3</typesafe.version>
 
-    <profile.api-docs/>
-    <profile.test/>
+    <spring-dotenv.version>4.0.0</spring-dotenv.version>
+    <json-web-token.version>0.12.3</json-web-token.version>
+
+    <profile.api-docs />
+    <profile.test />
   </properties>
 
   <dependencyManagement>
@@ -176,7 +183,12 @@
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-docker-compose</artifactId>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
 
     <!-- OAuth2 -->
     <dependency>
@@ -187,7 +199,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
     </dependency>
-
 
     <!-- Metrics -->
     <dependency>
@@ -226,42 +237,47 @@
     </dependency>
 
     <!-- Spring cloud -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-bootstrap</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-consul-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-consul-discovery</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-gateway</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-gateway-mvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-bootstrap</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>-->
+<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.cloud</groupId>-->
+    <!--      <artifactId>spring-cloud-starter-consul-config</artifactId>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.cloud</groupId>-->
+    <!--      <artifactId>spring-cloud-starter-consul-discovery</artifactId>-->
+    <!--    </dependency>-->
+    <!-- Spring Cloud Netflix Eureka Client -->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-gateway</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-gateway-mvc</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-webflux</artifactId>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webflux-api</artifactId>
@@ -281,6 +297,13 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+
+    <!-- Provides a Dotenv property source for Spring and Spring Boot -->
+    <dependency>
+      <groupId>me.paulschwarz</groupId>
+      <artifactId>spring-dotenv</artifactId>
+      <version>${spring-dotenv.version}</version>
     </dependency>
 
     <!-- Caching -->
@@ -319,6 +342,33 @@
       <version>${feign-reactor-cloud.version}</version>
     </dependency>
 
+    <!-- Persistence -->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>com.zaxxer</groupId>-->
+<!--      <artifactId>HikariCP</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.hibernate.orm</groupId>-->
+<!--      <artifactId>hibernate-core</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.hibernate.orm</groupId>-->
+<!--      <artifactId>hibernate-jcache</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.postgresql</groupId>-->
+<!--      <artifactId>postgresql</artifactId>-->
+<!--      <scope>runtime</scope>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.liquibase</groupId>-->
+<!--      <artifactId>liquibase-core</artifactId>-->
+<!--      <version>${liquibase.version}</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>com.typesafe</groupId>
       <artifactId>config</artifactId>
@@ -359,6 +409,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+      <version>${testcontainers.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <!-- Adding the engine dependency to the surefire-plugin unfortunately does not work in the current version. -->
       <!-- https://www.archunit.org/userguide/html/000_Index.html#_junit_5 -->
       <groupId>com.tngtech.archunit</groupId>
@@ -371,6 +427,31 @@
       <groupId>io.projectreactor.tools</groupId>
       <artifactId>blockhound-junit-platform</artifactId>
       <version>${blockhound-junit-platform.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Test DB -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Auth tests -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${json-web-token.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${json-web-token.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${json-web-token.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -505,7 +586,7 @@
           <version>${spotless-maven-plugin.version}</version>
           <configuration>
             <java>
-              <removeUnusedImports/>
+              <removeUnusedImports />
             </java>
           </configuration>
           <executions>
@@ -637,7 +718,7 @@
               <id>enforce-dependencyConvergence</id>
               <configuration>
                 <rules>
-                  <DependencyConvergence/>
+                  <DependencyConvergence />
                 </rules>
                 <fail>false</fail>
               </configuration>
@@ -892,7 +973,7 @@
                 <outputDirectory>target/jacoco/</outputDirectory>
               </configuration>
             </execution>
-                        <execution>
+            <execution>
               <id>check</id>
               <goals>
                 <goal>check</goal>
