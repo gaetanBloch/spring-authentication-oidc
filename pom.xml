@@ -72,7 +72,7 @@
 
     <mapstruct.version>1.5.5.Final</mapstruct.version>
 
-    <commons-lang3.version>3.14.0</commons-lang3.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
     <reflections.version>0.10.2</reflections.version>
     <testcontainers.version>1.17.6</testcontainers.version>
     <git-commit-id-plugin.version>7.0.0</git-commit-id-plugin.version>
